@@ -7,13 +7,19 @@ Dự án xây dựng một **pipeline dữ liệu thời gian thực (Realtime E
 ## 🏗️ Kiến trúc hệ thống
 
 ```
-MySQL (Master Data)  ──►  Fake Data Generator  ──►  Cassandra (Tracking Logs)
-                                                            │
-                                                            ▼
-                                                     ETL Pipeline
-                                                            │
-                                                            ▼
-                                                   Data Warehouse / Analytics
+MySQL (Master Data: job, master_publisher)
+        │                        │
+        │ (job_id, publisher_id) │ (job enrichment)
+        ▼                        │
+Fake Data Generator              │
+        │                        │
+        │ (insert tracking logs) │
+        ▼                        ▼
+Cassandra (Tracking Logs) ──► ETL Pipeline (PySpark)
+                                        │
+                                        │ (aggregated events)
+                                        ▼
+                               MySQL (events table)
 ```
 
 ### Thành phần chính:
