@@ -7,14 +7,14 @@ Dự án xây dựng một **pipeline dữ liệu thời gian thực (Neartime E
 ## 🏗️ Kiến trúc hệ thống
 
 ```
-MySQL (Master Data: job, master_publisher)
-        │                        │
-        │ (job_id, publisher_id) │ (job enrichment)
-        ▼                        │
-Fake Data Generator              │
-        │                        │
-        │ (insert tracking logs) │
-        ▼                        ▼
+MySQL (Master Data: job)
+        │                        
+        │ (job_id, publisher_id) 
+        ▼                        
+Fake Data Generator              
+        │                        
+        │ (insert tracking logs) 
+        ▼                        
 Cassandra (Tracking Logs) ──► ETL Pipeline (PySpark)
                                         │
                                         │ (aggregated events)
