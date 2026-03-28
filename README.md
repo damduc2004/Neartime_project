@@ -1,8 +1,8 @@
-# Realtime Data Pipeline Project
+# Neartime Data Pipeline Project
 
 ## 📋 Mô tả dự án
 
-Dự án xây dựng một **pipeline dữ liệu thời gian thực (Neartime ETL Pipeline)** để theo dõi và phân tích hành vi tương tác của người dùng với các tin tuyển dụng (job tracking). Hệ thống thu thập dữ liệu tracking (click, conversion, qualified, unqualified) từ các nguồn khác nhau, lưu trữ vào Cassandra, sau đó xử lý và chuyển đổi (ETL) để phục vụ phân tích.
+Dự án xây dựng một **Neartime ETL Pipeline** để theo dõi và phân tích hành vi tương tác của người dùng với các tin tuyển dụng (job tracking). Hệ thống thu thập dữ liệu tracking (click, conversion, qualified, unqualified) từ các nguồn khác nhau, lưu trữ vào Cassandra, sau đó xử lý và chuyển đổi (ETL) để phục vụ phân tích.
 
 ## 🏗️ Kiến trúc hệ thống
 
