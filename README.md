@@ -2,7 +2,7 @@
 
 ## 📋 Mô tả dự án
 
-Dự án xây dựng một **pipeline dữ liệu thời gian thực (Realtime ETL Pipeline)** để theo dõi và phân tích hành vi tương tác của người dùng với các tin tuyển dụng (job tracking). Hệ thống thu thập dữ liệu tracking (click, conversion, qualified, unqualified) từ các nguồn khác nhau, lưu trữ vào Cassandra, sau đó xử lý và chuyển đổi (ETL) để phục vụ phân tích.
+Dự án xây dựng một **pipeline dữ liệu thời gian thực (Neartime ETL Pipeline)** để theo dõi và phân tích hành vi tương tác của người dùng với các tin tuyển dụng (job tracking). Hệ thống thu thập dữ liệu tracking (click, conversion, qualified, unqualified) từ các nguồn khác nhau, lưu trữ vào Cassandra, sau đó xử lý và chuyển đổi (ETL) để phục vụ phân tích.
 
 ## 🏗️ Kiến trúc hệ thống
 
@@ -26,7 +26,7 @@ Cassandra (Tracking Logs) ──► ETL Pipeline (PySpark)
 
 | Thành phần | Mô tả |
 |---|---|
-| **MySQL** | Lưu trữ dữ liệu master: `job`, `master_publisher`, `events` |
+| **MySQL** | Lưu trữ dữ liệu master: `job`, `events` |
 | **Apache Cassandra** | Lưu trữ dữ liệu tracking log theo thời gian thực |
 | **Fake Data Script** | Sinh dữ liệu giả lập hành vi người dùng liên tục |
 | **ETL Pipeline** | Trích xuất, chuyển đổi và tải dữ liệu để phân tích |
