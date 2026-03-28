@@ -1,0 +1,23 @@
+2026-03-28 11:36:25 [INFO] ==================================================
+2026-03-28 11:36:25 [INFO] Starting near real-time ETL pipeline
+2026-03-28 11:36:25 [INFO] Log file  : pipeline.log
+2026-03-28 11:36:25 [INFO] Loop interval: 5s
+2026-03-28 11:36:25 [INFO] ==================================================
+2026-03-28 11:36:38 [INFO] Cassandra latest : 2026-03-28 11:35:43
+2026-03-28 11:36:38 [INFO] MySQL latest     : 2026-03-28 11:24:19
+2026-03-28 11:36:38 [INFO] New data detected. Running main_task...
+2026-03-28 11:36:38 [INFO] ==================================================
+2026-03-28 11:36:38 [INFO] Filtering records after checkpoint: 2026-03-28 11:24:19
+2026-03-28 11:36:39 [INFO] New records to process: 70
+2026-03-28 11:38:02 [INFO] Write to MySQL completed successfully.
+2026-03-28 11:38:02 [INFO] ETL cycle completed in 83.72s | Checkpoint → 2026-03-28 11:35:43
+2026-03-28 11:38:02 [INFO] Sleeping 5s...
+2026-03-28 11:38:08 [INFO] Cassandra latest : 2026-03-28 11:35:43
+2026-03-28 11:38:08 [INFO] MySQL latest     : 2026-03-28 11:35:43
+2026-03-28 11:38:08 [INFO] No new data. Skipping cycle.
+2026-03-28 11:38:08 [INFO] Sleeping 5s...
+2026-03-28 11:38:13 [INFO] Cassandra latest : 2026-03-28 11:35:43
+2026-03-28 11:38:13 [INFO] MySQL latest     : 2026-03-28 11:35:43
+2026-03-28 11:38:13 [INFO] No new data. Skipping cycle.
+2026-03-28 11:38:13 [INFO] Sleeping 5s...
+2026-03-28 11:38:16 [INFO] Closing down clientserver connection

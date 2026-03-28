@@ -1,0 +1,103 @@
+services:
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=MyCluster
+      - CASSANDRA_AUTHENTICATOR=PasswordAuthenticator
+      - CASSANDRA_USER=cassandra
+      - CASSANDRA_PASSWORD=cassandra
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+    networks:
+      - app_network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1
+      - MYSQL_DATABASE=superset
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  pyspark:
+    image: jupyter/pyspark-notebook:latest
+    container_name: pyspark
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+    volumes:
+      - pyspark_data:/home/jovyan/work
+    networks:
+      - app_network
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+
+  superset:
+    image: apache/superset:latest
+    container_name: superset
+    restart: always
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=your_secret_key_here
+      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://superset:superset@superset-db:5432/superset
+      - REDIS_URL=redis://superset-redis:6379/0
+    depends_on:
+      superset-db:
+        condition: service_healthy
+      superset-redis:
+        condition: service_started
+    volumes:
+      - superset_home:/app/superset_home
+    command: ["/bin/bash", "-c", "superset db upgrade && superset fab create-admin --username admin --firstname Admin --lastname Admin --email admin@superset.com --password admin && superset init && superset run -h 0.0.0.0 -p 8088 --with-threads"]
+    networks:
+      - app_network
+
+  superset-db:
+    image: postgres:14
+    container_name: superset_db
+    restart: always
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+    volumes:
+      - superset_db_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U superset"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  superset-redis:
+    image: redis:7
+    container_name: superset_redis
+    restart: always
+    networks:
+      - app_network
+
+volumes:
+  cassandra_data:
+  mysql_data:
+  pyspark_data:
+  superset_home:
+  superset_db_data:
+
+networks:
+  app_network:
+    driver: bridge
